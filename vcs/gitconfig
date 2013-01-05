@@ -1,0 +1,32 @@
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[core]
+	autocrlf = input
+	editor = vim
+[user]
+	name = Mike McClurg
+	email = mike.mcclurg@citrix.com
+[alias]
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	pl = pull --rebase
+	st = status
+	branches = branch -a
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1364x382+0+0
+	history-view-vpane-position = 183
+	main-window-view = HistoryView
+	file-view-vpane-position = 313
