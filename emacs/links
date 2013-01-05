@@ -1,1 +1,2 @@
-emacs24.el	~/.emacs.el
+emacs24.el		~/.emacs.el
+el-get-init-files	~/.emacs.d/el-get-init-files

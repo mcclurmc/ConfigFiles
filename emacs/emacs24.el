@@ -15,6 +15,7 @@
 
 (setq el-get-sources
       '(el-get
+	color-theme-solarized
         (:name typerex-mode
                :type git
                :url "git://github.com/OCamlPro/typerex.git"
