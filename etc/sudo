@@ -1,0 +1,2 @@
+thinkfan.conf		/etc/thinkfan.conf
+thinkpad_acpi.conf	/etc/modprobe.d/thinkpad_conf.conf
