@@ -4,6 +4,8 @@
 # <filename> <link location>
 # We then create a link to each conf file in the appropriate location.
 
+set -e
+
 for f in $(find -name links); do
   d=$(pwd)/$(dirname $f)
   #echo "dir: $d"
@@ -11,8 +13,10 @@ for f in $(find -name links); do
     file=${d}/$(echo ${line} | cut -d\  -f1)
     link=$(echo ${line} | cut -d\  -f2)
     link=$(eval echo ${link}) # to expand ~
-    echo "Linking ${link} -> ${file}"
-    ln -sf ${file} ${link}
+    if [ ! -L ${link} ]; then # don't relink
+      echo "Linking ${link} -> ${file}"
+      ln -sf ${file} ${link}
+    fi
   done
 done
 
@@ -24,7 +28,11 @@ for f in $(find -name sudo); do
     file=${d}/$(echo ${line} | cut -d\  -f1)
     link=$(echo ${line} | cut -d\  -f2)
     link=$(eval echo ${link}) # to expand ~
-    echo "Linking ${link} -> ${file}"
-    sudo ln -sf ${file} ${link}
+    if [ ! -L ${link} ]; then # don't relink
+      echo "Linking ${link} -> ${file}"
+      sudo ln -sf ${file} ${link}
+    fi
   done
 done
+
+echo Done!
