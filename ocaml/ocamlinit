@@ -1,0 +1,17 @@
+#use "topfind";;
+
+#camlp4o
+#require "xen-api-client.lwt";;
+#require "lwt.syntax";;
+
+open Xen_api ;;
+open Xen_api_lwt_unix ;;
+open Lwt ;;
+
+Topfind.announce () ;;
+
+(* The %apply/%revapply primatives were added in 4.0, but not to the
+   Primatives library. Identity is defined here for convenience. *)
+external ( |> ) : 'a -> ('a -> 'b) -> 'b = "%revapply" ;;
+external ( @@ ) : ('a -> 'b) -> 'a -> 'b = "%apply" ;;
+external id : 'a -> 'a = "%identity" ;;

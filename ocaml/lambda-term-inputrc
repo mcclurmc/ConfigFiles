@@ -1,0 +1,15 @@
+[edit]
+M-f: next-word
+M-b: prev-word
+M-backspace: kill-prev-word
+C-w: kill-prev-word
+C-y: yank
+C-h: delete-prev-char
+C-b: prev-char
+C-f: next-char
+
+[read-line]
+C-p: history-prev
+C-n: history-next
+M-p: history-prev
+M-n: history-next
