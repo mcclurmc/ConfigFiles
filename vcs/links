@@ -1,1 +1,2 @@
-gitconfig   ~/.gitconfig
+gitconfig	~/.gitconfig
+hgrc		~/.hgrc
