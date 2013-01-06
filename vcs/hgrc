@@ -1,0 +1,16 @@
+[ui]
+username = Mike McClurg <mike.mcclurg@citrix.com>
+
+[diff]
+nodates=1
+git=1
+
+[extensions]
+mq=
+hgext.bookmarks =
+hgext.git =
+purge=
+
+#[http_proxy]
+#host=localhost:12345
+#always=true
