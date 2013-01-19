@@ -21,6 +21,7 @@ export DEBFULLNAME="Mike McClurg"
 export EDITOR=/usr/bin/vim
 export GIT_USER=mcclurmc
 export GOPATH=~/go
+export PYTHONPATH=$PYTHONPATH:~/.vim/plugin/
 
 # Set path
 PATH=~/Dropbox/bin:${PATH}

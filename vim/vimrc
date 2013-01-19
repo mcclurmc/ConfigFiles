@@ -1,0 +1,26 @@
+set tabstop=4
+set smartindent
+
+syntax on
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" OCamlSpotter
+"map <C-]> :call OCamlSpot()<CR>
+"map <C-t> <C-o>
+"map <C-w> :call OCamlSpotSplit()<CR>
+map <C-k> :call OCamlType()<CR>
+
+"syntax enable
+"set background=dark
+"colorscheme solarized
+
+if has('gui_running')
+	colorscheme evening
+else
+	colorscheme peachpuff
+endif
+
+so ~/Dropbox/conf/vimrc/vimrc-python
+so ~/Dropbox/conf/vimrc/vimrc-csp
