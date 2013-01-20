@@ -13,3 +13,4 @@ C-p: history-prev
 C-n: history-next
 M-p: history-prev
 M-n: history-next
+M-enter: complete-bar
