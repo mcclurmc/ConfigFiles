@@ -27,9 +27,8 @@
             ;; (local-set-key "\C-c\C-u" 'ocamlspot-use)
             ;; (local-set-key "\C-ct" 'caml-types-show-type)
             ;; (local-set-key "\C-cp" 'ocamlspot-pop-jump-stack)
-	    (tuareg-type-indent 2)
-	    (setq 'tab-width 2)
 	    (merlin-mode)
-	    (set-programming-options)))
+	    (set-programming-options))
+	    (setq tab-width 2))
 
-(add-hook 'tuareg-mode-hook 'merlin-mode)
+;(add-hook 'tuareg-mode-hook 'merlin-mode)
