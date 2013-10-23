@@ -48,6 +48,63 @@
 
 (server-start)
 
+;; setup opam exec-path
+(add-to-list
+ 'exec-path
+ (replace-regexp-in-string
+  "\n$" ""
+  (shell-command-to-string "opam config var bin")))
+
+(defvar opam-lib
+      (let* ((p (shell-command-to-string "opam config var lib"))
+	     (l (- (length p) 1)))
+	(substring p 0 l)))
+
+(defvar opam-bin
+      (let* ((p (shell-command-to-string "opam config var bin"))
+	     (l (- (length p) 1)))
+	(substring p 0 l)))
+
+(defvar opam-share
+      (let* ((p (shell-command-to-string "opam config var share"))
+	     (l (- (length p) 1)))
+	(substring p 0 l)))
+
+(defvar opam-emacs (concat opam-share "/emacs/site-lisp"))
+
+(add-to-list 'load-path opam-emacs)
+
+(setq exec-path (cons opam-bin exec-path))
+
+;(setq tuareg-interactive-program "opam config exec ocaml")
+
+;; OCamlSpotter
+(let* ((f (concat opam-emacs "/ocamlspot.el")))
+  (if (file-exists-p f)
+      (progn
+	(require 'ocamlspot)
+	(autoload 'utop "utop" "Toplevel for OCaml" t)
+	;; (autoload 'utop-setup-ocaml-buffer "opam config exec utop" "Toplevel for OCaml" t)
+	;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+	;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+	)))
+
+(let* ((f (concat opam-emacs "/utop.el")))
+  (if (file-exists-p f)
+      (progn
+	(autoload 'utop "utop" "Toplevel for OCaml" t)
+	)))
+
+; Set OPAM environment variables
+(defun opam-setup ()
+  "Call 'opam config env' to set up PATH"
+  (interactive)
+  (dolist (var (car (read-from-string
+		     (shell-command-to-string "opam config env --sexp"))))
+    (setenv (car var) (cadr var))))
+
+(opam-setup)
+
 ;; Settings
 
 (scroll-bar-mode 0)
@@ -105,8 +162,12 @@
 (defun set-programming-options ()
   (interactive)
   (hs-minor-mode)
+  (subword-mode)
   (set-variable 'show-trailing-whitespace 't)
   (set-variable 'tab-width 2)
+  (font-lock-add-keywords
+   nil
+   '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\)" 1 font-lock-warning-face t)))
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 (require 'uniquify) ;; http://www.emacswiki.org/emacs/uniquify
@@ -149,3 +210,16 @@
 
 (global-set-key (kbd "C-M-|") 'reindent-fix-whitespace)
 (put 'scroll-left 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
+ '(safe-local-variable-values (quote ((eval local-set-key (kbd "C-c C-c") (quote compile)) (eval set-local-key (kbd "C-c C-c") (quote compile))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
