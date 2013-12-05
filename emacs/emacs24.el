@@ -1,6 +1,11 @@
 ;; el-get is awesome!
 ;; https://github.com/dimitri/el-get
 
+(defun recompile-configs ()
+  (interactive)
+  (byte-recompile-file "~/.emacs.el")
+  (byte-recompile-file "~/.emacs.local.el"))
+
 ; eval emacs.local.el, and have that point to config/emacs/emacs.mac.el
 ; that should cd into ~
 (load "~/.emacs.local")
