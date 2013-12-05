@@ -1,6 +1,10 @@
 ;; el-get is awesome!
 ;; https://github.com/dimitri/el-get
 
+; eval emacs.local.el, and have that point to config/emacs/emacs.mac.el
+; that should cd into ~
+(load "~/.emacs.local")
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -13,36 +17,49 @@
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 
-(setq el-get-sources
-      '(el-get
-	color-theme-solarized
-        (:name typerex-mode
-               :type git
-               :url "git://github.com/OCamlPro/typerex.git"
-               :description "Development Studio for OCaml"
-               :build
-               (("mkdir" "-p" "dist/bin")
-                ("mkdir" "-p" "dist/elisp")
-                "./configure --bindir `pwd`/dist/bin"
-                ("make")
-                ("make" "install-binaries")
-                "EMACSDIR=./dist/elisp make -e install-emacs")
-               ; :compile ("./dist/elisp/typerex.elc")
-               :load-path ("./dist/elisp")
-               :depends (auto-complete popup fuzzy)
-               :prepare
-               (progn
-                 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
-                 (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
-                 (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
-                 (autoload 'typerex-mode "typerex"
-                   "Major mode for editing OCaml code" t)
-                 (setq ocp-server-command
-                       (concat el-get-dir
-                               "typerex-mode/dist/bin/ocp-wizard"))
-                 (setq-default indent-tabs-mode nil)))))
+;; (setq el-get-sources
+;;       '(el-get
+;; 	auto-complete
+;; 	color-theme-solarized
+;; 	tuareg-mode
+;; 	google-c-style
+;; 	haskell-mode
+;; 	idris-mode))
 
-(el-get 'sync)
+(el-get 'sync
+	'(color-theme-solarized
+	  auto-complete
+	  tuareg-mode
+	  google-c-style
+	  haskell-mode
+	  idris-mode))
+
+
+        ;; (:name typerex-mode
+        ;;        :type git
+        ;;        :url "git://github.com/OCamlPro/typerex.git"
+        ;;        :description "Development Studio for OCaml"
+        ;;        :build
+        ;;        (("mkdir" "-p" "dist/bin")
+        ;;         ("mkdir" "-p" "dist/elisp")
+        ;;         "./configure --bindir `pwd`/dist/bin"
+        ;;         ("make")
+        ;;         ("make" "install-binaries")
+        ;;         "EMACSDIR=./dist/elisp make -e install-emacs")
+        ;;        ; :compile ("./dist/elisp/typerex.elc")
+        ;;        :load-path ("./dist/elisp")
+        ;;        :depends (auto-complete popup fuzzy)
+        ;;        :prepare
+        ;;        (progn
+        ;;          (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
+        ;;          (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
+        ;;          (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
+        ;;          (autoload 'typerex-mode "typerex"
+        ;;            "Major mode for editing OCaml code" t)
+        ;;          (setq ocp-server-command
+        ;;                (concat el-get-dir
+        ;;                        "typerex-mode/dist/bin/ocp-wizard"))
+        ;;          (setq-default indent-tabs-mode nil)))))
 
 ;; emacs server (because emacs daemon isn't working for some reason)
 
@@ -54,6 +71,8 @@
  (replace-regexp-in-string
   "\n$" ""
   (shell-command-to-string "opam config var bin")))
+
+(add-to-list 'exec-path "/usr/local/bin")
 
 (defvar opam-lib
       (let* ((p (shell-command-to-string "opam config var lib"))
@@ -103,13 +122,13 @@
 		     (shell-command-to-string "opam config env --sexp"))))
     (setenv (car var) (cadr var))))
 
-(opam-setup)
+;; (opam-setup)
 
 ;; Settings
 
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
-(menu-bar-mode 0)
+;(menu-bar-mode 0)
 (setq inhibit-splash-screen 't)
 (setq make-backup-files 'nil)
 (setq transient-mark-mode 't)
