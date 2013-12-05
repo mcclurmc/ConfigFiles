@@ -13,6 +13,10 @@
 (autoload 'merlin-mode "merlin" "Merlin mode" t)
 (setq merlin-use-auto-complete-mode t)
 
+(setq completion-ignored-extensions
+      (append '(".cmt" ".cmti" ".omc" ".opt" ".byte" ".native")
+	      completion-ignored-extensions))
+
 ;(add-hook 'caml-mode-hook 'merlin-mode)
 
 (add-hook 'tuareg-mode-hook 
