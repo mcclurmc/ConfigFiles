@@ -5,6 +5,8 @@
 ; that should cd into ~
 (load "~/.emacs.local")
 
+(setq el-get-verbose t)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -62,8 +64,7 @@
         ;;          (setq-default indent-tabs-mode nil)))))
 
 ;; emacs server (because emacs daemon isn't working for some reason)
-
-(server-start)
+;; (server-start)
 
 ;; setup opam exec-path
 (add-to-list
@@ -126,9 +127,12 @@
 
 ;; Settings
 
+(add-to-list 'auto-mode-alist '("\\.spec.in" . 'shell-script-mode))
+
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
-;(menu-bar-mode 0)
+(menu-bar-mode 0)
+
 (setq inhibit-splash-screen 't)
 (setq make-backup-files 'nil)
 (setq transient-mark-mode 't)
@@ -137,15 +141,16 @@
 
 (ido-mode)
 (subword-mode)
-(color-theme-solarized-dark)
+;(color-theme-solarized-dark)
 (display-time)
 (show-paren-mode)
 
 ;; New key combinations:
 (global-set-key (kbd "RET")           'newline-and-indent)
 (global-set-key (kbd "M-<backspace>") 'delete-trailing-whitespace)
+;(global-set-key "\M-\d" 'delete-trailing-whitespace) ; for some terminals
 (global-set-key (kbd "S-<backspace>") 'delete-backward-char)
-(global-set-key (kbd "C-S-v")         'scroll-down)
+;; (global-set-key (kbd "C-S-v")         'scroll-down)
 (global-set-key [f12]                 'menu-bar-mode)
 (global-set-key (kbd "C-j")           'open-line)
 
