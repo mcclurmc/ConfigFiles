@@ -1,0 +1,112 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/Config/oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="simple"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git jira)
+
+source $ZSH/oh-my-zsh.sh
+
+# My stuff
+
+#source /etc/zsh_command_not_found
+
+setopt appendhistory autocd extendedglob nomatch notify
+unsetopt autopushd
+
+# rehash if completion fails: http://www.zsh.org/mla/users//2011/msg00532.html
+zstyle ':completion:*' rehash true
+
+# Set path
+export GOPATH=~/go
+PATH=~/Dropbox/bin:~/bin
+PATH=/Users/mike/Library/Haskell/bin:${PATH}
+PATH=${PATH}:~/.cabal/bin/
+PATH=${PATH}:${GOPATH}/bin
+PATH=$PATH:/usr/local/go/bin
+PATH=${PATH}:/bin:/usr/bin:/usr/local/bin
+PATH=${PATH}:/sbin:/usr/sbin:/usr/local/sbin
+PATH=${PATH}:/Applications/Postgres.app/Contents/MacOS/bin
+export PATH
+
+# EC2 stuff
+
+export EC2_USER=6043-0031-4820
+export EC2_ACCESS=AKIAJPTNEAVWYVCCCAPQ
+export EC2_ACCESS_SECRET=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
+export EC2_CERT=/home/mike/.ssh/ec2/cert-5NSPYKKD3G6RZZOC47NWW5EMKOD4VNFN.pem
+export EC2_PRIVATE_KEY=/home/mike/.ssh/ec2/pk-5NSPYKKD3G6RZZOC47NWW5EMKOD4VNFN.pem
+
+# opam
+
+/usr/bin/which -s opam && eval $(opam config -env)
+[ -r .opam/opam-init/complete.zsh ] && source .opam/opam-init/complete.zsh
+
+# Aliases
+
+alias ec='emacsclient -n'
+alias pd='pushd +0'
+alias tmux='tmux -2'
+
+export HOMEBREW_GITHUB_API_TOKEN=3f538a14751081a127ebd44f1b539bcc868ac8e0
+
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+if [ -f /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
+    alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+    PATH=/Applications/Emacs.app/Contents/MacOS/bin:${PATH}
+    export PATH
+fi
+
+export PERL_LOCAL_LIB_ROOT="/Users/mike/perl5:$PERL_LOCAL_LIB_ROOT";
+export PERL_MB_OPT="--install_base "/Users/mike/perl5"";
+export PERL_MM_OPT="INSTALL_BASE=/Users/mike/perl5";
+export PERL5LIB="/Users/mike/perl5/lib/perl5:$PERL5LIB";
+export PATH="/Users/mike/perl5/bin:$PATH";
+
+# For openssl 1.0 install, specifically for python/postgres psycopg2 library
+export DYLD_LIBRARY_PATH=/usr/local/Cellar/openssl/1.0.1e/lib/
+
+# For homebrew pkgconfig
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+# Set up JAVA_HOME on OSX
+[ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
+
