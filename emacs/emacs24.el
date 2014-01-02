@@ -39,7 +39,10 @@
 	  tuareg-mode
 	  google-c-style
 	  haskell-mode
-	  idris-mode))
+	  idris-mode
+	  markdown-mode
+	  js2-mode
+	  clojure-mode))
 
 
         ;; (:name typerex-mode
