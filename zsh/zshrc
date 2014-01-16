@@ -40,7 +40,7 @@ DISABLE_CORRECTION="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git jira)
+plugins=(git jira brew mercurial mosh vagrant battery tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -64,6 +64,7 @@ PATH=$PATH:/usr/local/go/bin
 PATH=${PATH}:/bin:/usr/bin:/usr/local/bin
 PATH=${PATH}:/sbin:/usr/sbin:/usr/local/sbin
 PATH=${PATH}:/Applications/Postgres.app/Contents/MacOS/bin
+PATH=${PATH}:/usr/local/texlive/2013/bin/universal-darwin
 export PATH
 
 # EC2 stuff
@@ -110,3 +111,5 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 # Set up JAVA_HOME on OSX
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 
+# Tomcat server
+export CATALINA_HOME=/usr/local/Cellar/tomcat6/6.0.37/
