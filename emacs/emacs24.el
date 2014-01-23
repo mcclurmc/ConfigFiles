@@ -42,7 +42,9 @@
 	  idris-mode
 	  markdown-mode
 	  js2-mode
-	  clojure-mode))
+	  clojure-mode
+	  dockerfile-mode
+	  go-mode))
 
 
         ;; (:name typerex-mode
