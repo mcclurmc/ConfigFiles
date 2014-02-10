@@ -197,6 +197,7 @@
   (interactive)
   (hs-minor-mode)
   (subword-mode)
+  (setq indent-tabs-mode nil)
   (set-variable 'show-trailing-whitespace 't)
   (set-variable 'tab-width 2)
   (font-lock-add-keywords
