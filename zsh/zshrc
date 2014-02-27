@@ -40,7 +40,7 @@ DISABLE_CORRECTION="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git jira brew mercurial mosh vagrant battery tmux pip docker bower)
+plugins=(git jira brew mercurial mosh vagrant battery tmux pip docker bower gem heroku mvn sbt lein scala python node npm osx rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,10 +54,20 @@ unsetopt autopushd
 # rehash if completion fails: http://www.zsh.org/mla/users//2011/msg00532.html
 zstyle ':completion:*' rehash true
 
+# global completions
+fpath=(${fpath} /usr/local/share/zsh/site-functions/)
+
+# From Dropbox
+
+[ -f ~/Dropbox/zshrc.sh ] && source ~/Dropbox/zshrc.sh
+
 # Set path
 export GOPATH=~/go
+export GOROOT=/usr/local/Cellar/go/1.2/libexec/
 PATH=~/Dropbox/bin:~/bin
 PATH=/Users/mike/Library/Haskell/bin:${PATH}
+PATH=/usr/local/opt/ruby/bin:${PATH}
+PATH=/usr/local/Cellar/go/1.2/libexec/bin:${PATH}
 PATH=${PATH}:~/.cabal/bin/
 PATH=${PATH}:${GOPATH}/bin
 PATH=$PATH:/usr/local/go/bin
@@ -66,14 +76,6 @@ PATH=${PATH}:/sbin:/usr/sbin:/usr/local/sbin
 PATH=${PATH}:/Applications/Postgres.app/Contents/MacOS/bin
 PATH=${PATH}:/usr/local/texlive/2013/bin/universal-darwin
 export PATH
-
-# EC2 stuff
-
-export EC2_USER=6043-0031-4820
-export EC2_ACCESS=AKIAJPTNEAVWYVCCCAPQ
-export EC2_ACCESS_SECRET=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
-export EC2_CERT=/home/mike/.ssh/ec2/cert-5NSPYKKD3G6RZZOC47NWW5EMKOD4VNFN.pem
-export EC2_PRIVATE_KEY=/home/mike/.ssh/ec2/pk-5NSPYKKD3G6RZZOC47NWW5EMKOD4VNFN.pem
 
 # opam
 
@@ -113,3 +115,6 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 # Tomcat server
 export CATALINA_HOME=/usr/local/Cellar/tomcat6/6.0.37/
+
+# Run a docker host on virtualbox, with NAT from 127.0.0.1:4243
+export DOCKER_HOST=localhost
