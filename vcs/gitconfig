@@ -18,8 +18,9 @@
 	editor = vim
 [user]
 	name = Mike McClurg
-	email = mike.mcclurg@citrix.com
+	email = mike.mcclurg@gmail.com
 [alias]
+	lg = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	pl = pull --rebase
 	st = status
