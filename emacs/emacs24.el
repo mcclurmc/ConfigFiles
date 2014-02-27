@@ -44,7 +44,9 @@
 	  js2-mode
 	  clojure-mode
 	  dockerfile-mode
-	  go-mode))
+	  go-mode
+	  yasnippet
+	  rinari))
 
 
         ;; (:name typerex-mode
@@ -139,10 +141,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.spec.in" . 'shell-script-mode))
 
-(scroll-bar-mode 0)
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-
 (setq inhibit-splash-screen 't)
 (setq make-backup-files 'nil)
 (setq transient-mark-mode 't)
@@ -192,7 +190,7 @@
 
 (global-set-key (kbd "C-x C-o") 'other-window-rev)
 
-;; Helper functions for mode hooks
+;; Helper functions for mode hook
 (defun set-programming-options ()
   (interactive)
   (hs-minor-mode)
@@ -209,6 +207,13 @@
 (setq uniquify-buffer-name-style `post-forward)
 (setq uniquify-min-dir-content 2)
 
+;; Ignore LaTeX gen files
+(add-hook 'latex-mode-hook
+	  (lambda ()
+	    (setq completion-ignored-extensions
+		  (append '(".aux" ".bbl" ".log" ".dvi" ".blg" ".fdb_latexmk" ".bak" ".toc" ".fls")
+			  completion-ignored-extensions))
+	    (auto-fill-mode)))
 
 ;; http://www.emacswiki.org/emacs/TransposeWindows
 (defun rotate-windows ()
