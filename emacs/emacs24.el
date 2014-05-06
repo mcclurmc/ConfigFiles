@@ -24,15 +24,6 @@
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 
-;; (setq el-get-sources
-;;       '(el-get
-;; 	auto-complete
-;; 	color-theme-solarized
-;; 	tuareg-mode
-;; 	google-c-style
-;; 	haskell-mode
-;; 	idris-mode))
-
 (el-get 'sync
 	'(color-theme-solarized
 	  auto-complete
@@ -46,36 +37,16 @@
 	  dockerfile-mode
 	  go-mode
 	  yasnippet
-	  rinari))
+	  rinari
+	  ruby-mode
+	  auto-complete-ruby
+	  scala-mode2
+	  ensime
+	  ;auctex
+	  auto-complete-latex
+	  org-mode
+	  ))
 
-
-        ;; (:name typerex-mode
-        ;;        :type git
-        ;;        :url "git://github.com/OCamlPro/typerex.git"
-        ;;        :description "Development Studio for OCaml"
-        ;;        :build
-        ;;        (("mkdir" "-p" "dist/bin")
-        ;;         ("mkdir" "-p" "dist/elisp")
-        ;;         "./configure --bindir `pwd`/dist/bin"
-        ;;         ("make")
-        ;;         ("make" "install-binaries")
-        ;;         "EMACSDIR=./dist/elisp make -e install-emacs")
-        ;;        ; :compile ("./dist/elisp/typerex.elc")
-        ;;        :load-path ("./dist/elisp")
-        ;;        :depends (auto-complete popup fuzzy)
-        ;;        :prepare
-        ;;        (progn
-        ;;          (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
-        ;;          (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
-        ;;          (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
-        ;;          (autoload 'typerex-mode "typerex"
-        ;;            "Major mode for editing OCaml code" t)
-        ;;          (setq ocp-server-command
-        ;;                (concat el-get-dir
-        ;;                        "typerex-mode/dist/bin/ocp-wizard"))
-        ;;          (setq-default indent-tabs-mode nil)))))
-
-;; emacs server (because emacs daemon isn't working for some reason)
 ;; (server-start)
 
 ;; setup opam exec-path
@@ -149,18 +120,20 @@
 
 (ido-mode)
 (subword-mode)
-;(color-theme-solarized-dark)
 (display-time)
 (show-paren-mode)
+;(color-theme-solarized-dark)
 
 ;; New key combinations:
 (global-set-key (kbd "RET")           'newline-and-indent)
-(global-set-key (kbd "M-<backspace>") 'delete-trailing-whitespace)
-;(global-set-key "\M-\d" 'delete-trailing-whitespace) ; for some terminals
-(global-set-key (kbd "S-<backspace>") 'delete-backward-char)
-;; (global-set-key (kbd "C-S-v")         'scroll-down)
+(global-set-key (kbd "C-<backspace>") 'delete-trailing-whitespace)
 (global-set-key [f12]                 'menu-bar-mode)
 (global-set-key (kbd "C-j")           'open-line)
+;(global-set-key (kbd "M-<backspace>") 'delete-trailing-whitespace)
+;(global-set-key (kbd "M-<backspace>") 'backward-kill-word)
+;(global-set-key "\M-\d" 'delete-trailing-whitespace) ; for some terminals
+;(global-set-key (kbd "S-<backspace>") 'delete-backward-char)
+;; (global-set-key (kbd "C-S-v")         'scroll-down)
 
 ;; (defun scroll-up-1 ()
 ;;   (interactive)
@@ -190,6 +163,11 @@
 
 (global-set-key (kbd "C-x C-o") 'other-window-rev)
 
+;; http://www.emacswiki.org/emacs/uniquify
+(require 'uniquify)
+(setq uniquify-buffer-name-style `post-forward)
+(setq uniquify-min-dir-content 2)
+
 ;; Helper functions for mode hook
 (defun set-programming-options ()
   (interactive)
@@ -203,17 +181,28 @@
    '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\)" 1 font-lock-warning-face t)))
   (local-set-key (kbd "RET") 'newline-and-indent))
 
-(require 'uniquify) ;; http://www.emacswiki.org/emacs/uniquify
-(setq uniquify-buffer-name-style `post-forward)
-(setq uniquify-min-dir-content 2)
+;; mode hooks
+
+(add-hook 'java-mode-hook
+	  (lambda ()
+	    (set-programming-options)))
+(add-hook 'ruby-mode-hook
+	  (lambda ()
+	    (set-programming-options)))
+
+(defun my-latex-options ()
+  (interactive)
+  (lambda ()
+    (font-lock-add-keywords
+     nil
+     '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\)" 1 font-lock-warning-face t)))
+    (setq completion-ignored-extensions
+	  (append '(".aux" ".bbl" ".log" ".dvi" ".blg" ".fdb_latexmk" ".bak" ".toc" ".fls")
+		  completion-ignored-extensions))
+    (auto-fill-mode)))
 
 ;; Ignore LaTeX gen files
-(add-hook 'latex-mode-hook
-	  (lambda ()
-	    (setq completion-ignored-extensions
-		  (append '(".aux" ".bbl" ".log" ".dvi" ".blg" ".fdb_latexmk" ".bak" ".toc" ".fls")
-			  completion-ignored-extensions))
-	    (auto-fill-mode)))
+(add-hook 'latex-mode-hook' my-latex-options)
 
 ;; http://www.emacswiki.org/emacs/TransposeWindows
 (defun rotate-windows ()

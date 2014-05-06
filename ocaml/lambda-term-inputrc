@@ -14,3 +14,7 @@ C-n: history-next
 M-p: history-prev
 M-n: history-next
 M-enter: complete-bar
+C-right: complete-bar-next
+C-left: complete-bar-prev
+M-right: complete-bar-next
+M-left: complete-bar-prev

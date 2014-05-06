@@ -40,7 +40,7 @@ DISABLE_CORRECTION="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git jira brew mercurial mosh vagrant battery tmux pip docker bower gem heroku mvn sbt lein scala python node npm osx rails)
+plugins=(git jira brew mercurial mosh vagrant battery tmux pip docker bower gem heroku mvn sbt lein scala python node npm osx rails rvm git-flow)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -64,7 +64,7 @@ fpath=(${fpath} /usr/local/share/zsh/site-functions/)
 # Set path
 export GOPATH=~/go
 export GOROOT=/usr/local/Cellar/go/1.2/libexec/
-PATH=~/Dropbox/bin:~/bin
+PATH=~/Dropbox/bin:~/bin:${PATH}
 PATH=/Users/mike/Library/Haskell/bin:${PATH}
 PATH=/usr/local/opt/ruby/bin:${PATH}
 PATH=/usr/local/Cellar/go/1.2/libexec/bin:${PATH}
@@ -75,6 +75,8 @@ PATH=${PATH}:/bin:/usr/bin:/usr/local/bin
 PATH=${PATH}:/sbin:/usr/sbin:/usr/local/sbin
 PATH=${PATH}:/Applications/Postgres.app/Contents/MacOS/bin
 PATH=${PATH}:/usr/local/texlive/2013/bin/universal-darwin
+PATH=${PATH}:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/bin
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH
 
 # opam
@@ -87,6 +89,8 @@ export PATH
 alias ec='emacsclient -n'
 alias pd='pushd +0'
 alias tmux='tmux -2'
+
+alias gpg='gpg2'
 
 export HOMEBREW_GITHUB_API_TOKEN=3f538a14751081a127ebd44f1b539bcc868ac8e0
 
@@ -111,10 +115,30 @@ export DYLD_LIBRARY_PATH=/usr/local/Cellar/openssl/1.0.1e/lib/
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 # Set up JAVA_HOME on OSX
-[ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
+[ -x /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Tomcat server
 export CATALINA_HOME=/usr/local/Cellar/tomcat6/6.0.37/
 
 # Run a docker host on virtualbox, with NAT from 127.0.0.1:4243
 export DOCKER_HOST=localhost
+
+# Greehouse.io
+alias prodlogdrain="ssh -i ~/Dropbox/Greenhouse/Development/AWS/greenhouse-build-key.pem ubuntu@ec2-54-225-4-240.compute-1.amazonaws.com"
+alias prodlog="heroku logs --tail -n10000 --app prod-greenhouse"
+alias uatlog="heroku logs --tail -n10000 --app uat-greenhouse"
+alias devlog="heroku logs --tail -n10000 --app dev-greenhouse"
+
+alias prodc="heroku run rails console --app prod-greenhouse"
+alias devc="heroku run rails console --app dev-greenhouse"
+alias uatc="heroku run rails console --app uat-greenhouse"
+
+alias rspec="bundle exec rspec"
+alias testdb="RAILS_ENV=test bundle exec rake --trace db:test:load db:seed"
+alias test="testdb && rspec"
+
+export PGHOST=localhost
+
+# Clean up pictures of text/drawings on whiteboards
+# https://gist.github.com/lelandbatey/8677901
+alias whiteboard_cleanup='convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2"'
